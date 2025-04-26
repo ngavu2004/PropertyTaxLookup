@@ -1,0 +1,23 @@
+.search-field-container {
+    display: flex;
+    flex-wrap: wrap; /* Ensures fields wrap to the next line if needed */
+    gap: 1rem; /* Adds space between the fields */
+    padding: auto;
+}
+
+.search-field {
+    padding: 0.5rem; /* Equivalent to p-2 */
+    border: 1px solid #d1d5db; /* Equivalent to border (default gray-300 in Tailwind) */
+    border-radius: 0.25rem; /* Equivalent to rounded */
+    width: 100%; /* Ensures the input takes full width of its container */
+    box-sizing: border-box; /* Prevents padding from affecting width */
+}
+
+.search-button {
+    grid-column: span 2; /* Equivalent to col-span-2 */
+    padding: 0.5rem; /* Equivalent to p-2 */
+    background-color: #3b82f6; /* Equivalent to bg-blue-500 */
+    color: white; /* Equivalent to text-white */
+    border-radius: 0.25rem; /* Equivalent to rounded */
+    margin: 0.5rem; /* Centers the button */
+}

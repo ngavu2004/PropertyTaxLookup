@@ -1,0 +1,25 @@
+.results-table {
+    width: 100%; /* Equivalent to w-full */
+    max-width: 100%; /* Ensures it doesn't exceed the container width */
+    border-collapse: collapse; /* Ensures borders are collapsed */
+    margin-top: 1rem; /* Equivalent to mt-4 */
+    overflow-x: auto;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 0.5rem; /* Equivalent to p-2 */
+    border: 1px solid #d1d5db; /* Equivalent to border (default gray-300 in Tailwind) */
+  }
+  
+  .results-table thead tr {
+    background-color: #e5e7eb; /* Equivalent to bg-gray-200 */
+  }
+  
+  .results-table tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* Equivalent to odd:bg-white */
+  }
+  
+  .results-table tbody tr:nth-child(even) {
+    background-color: #f9fafb; /* Equivalent to even:bg-gray-50 */
+  }
