@@ -1,0 +1,88 @@
+const fs = require('fs');
+const csv = require('csv-parser');
+const path = require('path');
+
+let properties = [];
+
+// Load CSV data once when the serverless function starts
+const loadProperties = () => {
+  return new Promise((resolve, reject) => {
+    const csvPath = path.join(process.cwd(), 'backend', 'properties.csv');
+    const results = [];
+    
+    fs.createReadStream(csvPath)
+      .pipe(csv())
+      .on('data', (row) => {
+        results.push(row);
+      })
+      .on('end', () => {
+        properties = results;
+        console.log(`Loaded ${properties.length} properties`);
+        resolve();
+      })
+      .on('error', reject);
+  });
+};
+
+// Initialize properties data
+let propertiesLoaded = false;
+
+export default async function handler(req, res) {
+  // Set CORS headers
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+
+  if (req.method !== 'GET') {
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
+  }
+
+  try {
+    // Load properties if not already loaded
+    if (!propertiesLoaded) {
+      await loadProperties();
+      propertiesLoaded = true;
+    }
+
+    const query = req.query;
+    console.log("Query parameters:", query);
+    let filtered = properties;
+
+    for (const key in query) {
+      console.log(`Filtering by ${key}: ${query[key]}`);
+      if (query[key].trim() === "") {
+        // Skip filtering if the query value is an empty string
+        continue;
+      }
+      filtered = filtered.filter((prop) =>
+        prop[key] && (prop[key].toLowerCase() == query[key].toLowerCase())
+      );
+    }
+
+    // Reorder the keys to show "Estimated Property Tax" first
+    filtered = filtered.map((prop) => {
+      const { "Estimated Property Tax": estimatedPropertyTax, ...rest } = prop;
+      return { "Estimated Property Tax": estimatedPropertyTax, ...rest };
+    });
+
+    if (filtered.length > 10) {
+      filtered = filtered.slice(0, 10);
+    }
+
+    console.log("Filtered results:", filtered);
+    res.status(200).json(filtered);
+  } catch (error) {
+    console.error('Error processing request:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}

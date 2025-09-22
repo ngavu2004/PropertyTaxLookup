@@ -10,7 +10,14 @@ function App() {
   const handleSearch = async (criteria) => {
     console.log("Search criteria:", criteria);
     const params = new URLSearchParams(criteria).toString();
-    const response = await axios.get(`http://localhost:5000/api/search?${params}`);
+    
+    // Use Vite environment variables
+    const apiUrl = import.meta.env.PROD 
+      ? `/api/search?${params}` 
+      : `http://localhost:5000/api/search?${params}`;
+    
+    console.log("API URL:", apiUrl);
+    const response = await axios.get(apiUrl);
     setResults(response.data);
     console.log("Search results:", response.data);
   };
