@@ -9,6 +9,14 @@ A web application to search and lookup property tax information from a database 
 - ⚡ Fast search with real-time results
 - 📱 Responsive design
 
+## How to use (Website)
+- Go to https://property-tax-lookup.vercel.app/
+- The website should have a UI like below
+![Property Tax Lookup UI](./assets/readme1.png)
+- If you want to search anything, hit `Search`
+- If you want to get all information, clear all fields and hit `Search`
+![Property Tax Lookup UI 2](./assets/readme1.png)
+
 ## Quick Start
 
 ```bash
