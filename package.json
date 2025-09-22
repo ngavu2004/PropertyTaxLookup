@@ -1,0 +1,21 @@
+{
+  "name": "property-tax-lookup",
+  "version": "1.0.0",
+  "description": "Property Tax Lookup Application",
+  "scripts": {
+    "start": "concurrently \"cd backend && node index.js\" \"cd frontend && npm run dev\"",
+    "start:backend": "cd backend && node index.js",
+    "start:frontend": "cd frontend && npm run dev",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "dev": "npm run start"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["property", "tax", "lookup", "react", "express"],
+  "author": "",
+  "license": "ISC"
+}

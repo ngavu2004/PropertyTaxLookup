@@ -9,7 +9,7 @@
       }
     },
     {
-      "src": "api/**/*.js",
+      "src": "api/search.js",
       "use": "@vercel/node"
     }
   ],
@@ -22,5 +22,10 @@
       "src": "/(.*)",
       "dest": "/frontend/$1"
     }
-  ]
+  ],
+  "functions": {
+    "api/search.js": {
+      "includeFiles": "backend/properties.csv"
+    }
+  }
 }

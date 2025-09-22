@@ -7,7 +7,28 @@ let properties = [];
 // Load CSV data once when the serverless function starts
 const loadProperties = () => {
   return new Promise((resolve, reject) => {
-    const csvPath = path.join(process.cwd(), 'backend', 'properties.csv');
+    // Try multiple possible paths for the CSV file
+    const possiblePaths = [
+      path.join(process.cwd(), 'backend', 'properties.csv'),
+      path.join(process.cwd(), 'properties.csv'),
+      path.join(__dirname, '..', 'backend', 'properties.csv'),
+      path.join(__dirname, '..', 'properties.csv')
+    ];
+    
+    let csvPath = null;
+    for (const testPath of possiblePaths) {
+      if (fs.existsSync(testPath)) {
+        csvPath = testPath;
+        break;
+      }
+    }
+    
+    if (!csvPath) {
+      reject(new Error('CSV file not found in any expected location'));
+      return;
+    }
+    
+    console.log(`Loading CSV from: ${csvPath}`);
     const results = [];
     
     fs.createReadStream(csvPath)
