@@ -91,10 +91,22 @@ export default async function handler(req, res) {
     }
 
     // Reorder the keys to show "Estimated Property Tax" first
-    filtered = filtered.map((prop) => {
-      const { "Estimated Property Tax": estimatedPropertyTax, ...rest } = prop;
-      return { "Estimated Property Tax": estimatedPropertyTax, ...rest };
-    });
+filtered = filtered.map((prop) => {
+  const { "Estimated Property Tax": estimatedPropertyTax, ...rest } = 
+prop;
+
+  // Filter out keys with empty strings or null/undefined values
+  const cleaned = {};
+  for (const key in rest) {
+    if (rest[key] !== null && rest[key] !== undefined && rest[key].trim() 
+!== "") {
+      cleaned[key] = rest[key];
+    }
+  }
+
+  return { "Estimated Property Tax": estimatedPropertyTax, ...cleaned };
+});
+
 
     if (filtered.length > 10) {
       filtered = filtered.slice(0, 10);
@@ -107,3 +119,4 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+
