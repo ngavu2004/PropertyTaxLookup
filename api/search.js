@@ -91,21 +91,42 @@ export default async function handler(req, res) {
     }
 
     // Reorder the keys to show "Estimated Property Tax" first
-filtered = filtered.map((prop) => {
-  const { "Estimated Property Tax": estimatedPropertyTax, ...rest } = 
-prop;
+// Step 1: Determine keys where ALL values are empty
+const keysToRemove = [];
+if (filtered.length > 0) {
+  const keys = Object.keys(filtered[0]);
+  for (const key of keys) {
+    const allEmpty = filtered.every(
+      (row) =>
+        row[key] === null ||
+        row[key] === undefined ||
+        row[key].toString().trim() === ""
+    );
+    if (allEmpty) {
+      keysToRemove.push(key);
+    }
+  }
+}
 
-  // Filter out keys with empty strings or null/undefined values
-  const cleaned = {};
-  for (const key in rest) {
-    if (rest[key] !== null && rest[key] !== undefined && rest[key].trim() 
-!== "") {
-      cleaned[key] = rest[key];
+// Step 2: Remove empty columns and re-order Estimated Property Tax first
+filtered = filtered.map((row) => {
+  const newRow = {};
+  const estimatedTax = row["Estimated Property Tax"];
+
+  // Add Estimated Property Tax first
+  newRow["Estimated Property Tax"] = estimatedTax;
+
+  // Add remaining keys except those in keysToRemove
+  for (const key in row) {
+    if (key !== "Estimated Property Tax" && !keysToRemove.includes(key)) {
+      newRow[key] = row[key];
     }
   }
 
-  return { "Estimated Property Tax": estimatedPropertyTax, ...cleaned };
+  return newRow;
 });
+
+
 
 
     if (filtered.length > 10) {

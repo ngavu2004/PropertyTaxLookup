@@ -2,12 +2,18 @@ import './styles/ResultsList.css'; // Assuming you have some styles for the resu
 
 export default function ResultsList({ data }) {
     if (!data.length) return <p>No results found.</p>;
+
+	//Find keys that have at least one row with non-empty value
+	const keys = Object.keys(data[0]);
+	const nonEmptyKeys = keys.filter((key) =>
+		data.some((row) => row[key] && row[key].toString().trim() !== "")
+	);
   
     return (
         <table className="results-table">
         <thead>
           <tr>
-            {Object.keys(data[0]).map((key) => (
+            {nonEmptyKeys.map((key) => (
               <th key={key}>{key}</th>
             ))}
           </tr>
@@ -15,8 +21,8 @@ export default function ResultsList({ data }) {
         <tbody>
           {data.map((row, idx) => (
             <tr key={idx}>
-              {Object.values(row).map((val, i) => (
-                <td key={i}>{val}</td>
+              {nonEmptyKeys.map((key) => (
+                <td key={key}>{row[key] || ""}</td>
               ))}
             </tr>
           ))}
