@@ -1,71 +1,97 @@
 const express = require('express');
-const fs = require('fs');
-const csv = require('csv-parser');
 const cors = require('cors');
+const connectDB = require('./config/database');
+const Property = require('./models/Property');
+
+// Load environment variables
+require('dotenv').config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
+// Middleware
 app.use(cors());
+app.use(express.json());
 
-let properties = [];
+// Connect to MongoDB
+connectDB();
 
-// Map the qyuery parameters to the CSV columns
-const queryParamMapping = {
-    'AIN': 'AIN',
-    'PID': 'PID',
-    'Address': 'Address',
-    'ZIP Code': 'ZIP Code',
-    'City': 'City',
-    'County': 'County',
-    'Estimated Property Tax': 'Estimated Property Tax'
-};
+app.get('/api/search', async (req, res) => {
+    try {
+        const query = req.query;
+        console.log("Query parameters:", query);
+        
+        // Build MongoDB query object
+        const mongoQuery = {};
+        
+        // Map query parameters to database fields
+        const fieldMapping = {
+            'AIN': 'AIN',
+            'APN': 'APN',
+            'Address': 'SitusAddress',
+            'SitusAddress': 'SitusAddress',
+            'SitusFullAddress': 'SitusFullAddress',
+            'ZIP Code': 'SitusZIP',
+            'SitusZIP': 'SitusZIP',
+            'City': 'SitusCity',
+            'SitusCity': 'SitusCity',
+            'County': 'LCITY',
+            'LCITY': 'LCITY',
+            'Estimated Property Tax': 'Estimated_Property_Tax',
+            'Estimated_Property_Tax': 'Estimated_Property_Tax',
+            'UseType': 'UseType',
+            'UseDescription': 'UseDescription',
+            'YearBuilt': 'YearBuilt1',
+            'SQFT': 'SQFTmain1',
+            'Bedrooms': 'Bedrooms1',
+            'Bathrooms': 'Bathrooms1'
+        };
 
-fs.createReadStream('properties.csv')
-  .pipe(csv())
-  .on('data', (row) => {
-    properties.push(row);
-  })
-  .on('end', () => {
-    console.log(properties)
-    console.log('CSV file successfully processed');
-  });
-
-app.get('/api/search', (req, res) => {
-
-    const query = req.query;
-    console.log("Query parameters:", query);
-    let filtered = properties;
-
-    for (const key in query) {
-        console.log(`Filtering by ${key}: ${query[key]}`);
-        if (query[key].trim() === "") {
-          // Skip filtering if the query value is an empty string
-          continue;
+        // Build the query object
+        for (const key in query) {
+            if (query[key] && query[key].trim() !== "") {
+                const dbField = fieldMapping[key] || key;
+                const value = query[key].trim();
+                
+                // Use case-insensitive regex search for text fields
+                if (dbField === 'AIN' || dbField === 'APN') {
+                    // Exact match for AIN and APN
+                    mongoQuery[dbField] = value;
+                } else {
+                    // Case-insensitive regex for other fields
+                    mongoQuery[dbField] = { $regex: value, $options: 'i' };
+                }
+                
+                console.log(`Filtering by ${key} (${dbField}): ${value}`);
+            }
         }
-        filtered = filtered.filter((prop) =>
-            prop[key] && (prop[key].toLowerCase() == query[key].toLowerCase())
-        );
+
+        console.log("MongoDB query:", mongoQuery);
+
+        // Execute the query with limit
+        const filtered = await Property.find(mongoQuery)
+            .limit(10)
+            .lean(); // Use lean() for better performance
+
+        // Reorder the keys to show "Estimated Property Tax" first
+        const reorderedResults = filtered.map((prop) => {
+            const { Estimated_Property_Tax, ...rest } = prop;
+            return { 
+                "Estimated Property Tax": Estimated_Property_Tax, 
+                ...rest 
+            };
+        });
+
+        console.log(`Found ${reorderedResults.length} results`);
+        res.json(reorderedResults);
+        
+    } catch (error) {
+        console.error('Search error:', error);
+        res.status(500).json({ 
+            error: 'Internal server error', 
+            message: error.message 
+        });
     }
-
-    // Create mock data for testing
-    // filtered = [
-    //     { AIN: '12345', PID: '67890', Address: '123 Main St', 'ZIP Code': '12345', City: 'Sample City', County: 'Sample County' },
-    //     { AIN: '54321', PID: '09876', Address: '456 Elm St', 'ZIP Code': '54321', City: 'Another City', County: 'Another County'},
-    // ]
-
-    // Reorder the keys to show "Estimated Property Tax" first
-    filtered = filtered.map((prop) => {
-        const { "Estimated Property Tax": estimatedPropertyTax, ...rest } = prop;
-        return { "Estimated Property Tax": estimatedPropertyTax, ...rest };
-    });
-
-    if (filtered.length > 10) {
-        filtered = filtered.slice(0, 10);
-    }
-
-    console.log("Filtered results:", filtered);
-    res.json(filtered);
 });
 
 app.listen(PORT, () => {

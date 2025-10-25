@@ -8,7 +8,13 @@
     "start:frontend": "cd frontend && npm run dev",
     "install:all": "cd backend && npm install && cd ../frontend && npm install",
     "dev": "npm run start",
-    "build": "cd frontend && npm run build"
+    "build": "cd frontend && npm run build",
+    "setup": "chmod +x scripts/setup.sh && ./scripts/setup.sh",
+    "import-csv": "cd backend && npm run import-csv",
+    "update-db": "cd backend && npm run update-db",
+    "start:unix": "./start.sh",
+    "start:windows": "start.bat",
+    "dev:unix": "chmod +x scripts/dev.sh && ./scripts/dev.sh"
   },
   "dependencies": {
     "csv-parser": "^3.2.0"
