@@ -16,6 +16,10 @@ app.use(express.json());
 // Connect to MongoDB
 connectDB();
 
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
 app.get('/api/search', async (req, res) => {
     try {
         const query = req.query;
