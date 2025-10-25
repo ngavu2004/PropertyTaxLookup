@@ -6,13 +6,14 @@ import ResultsList from './ResultsList';
 
 function App() {
   const [results, setResults] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   const handleSearch = async (criteria) => {
     console.log("Search criteria:", criteria);
     const params = new URLSearchParams(criteria).toString();
     
     // Use Vite environment variables
-    const apiUrl = import.meta.env.VITE_API_URL;
+    console.log("API URL:", apiUrl);
     const response = await axios.get(`${apiUrl}/api/search?${params}`);
     setResults(response.data);
   };
