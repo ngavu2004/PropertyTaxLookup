@@ -12,14 +12,9 @@ function App() {
     const params = new URLSearchParams(criteria).toString();
     
     // Use Vite environment variables
-    const apiUrl = import.meta.env.PROD 
-      ? `/api/search?${params}` 
-      : `http://localhost:5000/api/search?${params}`;
-    
-    console.log("API URL:", apiUrl);
-    const response = await axios.get(apiUrl);
+    const apiUrl = import.meta.env.VITE_API_URL;
+    const response = await axios.get(`${apiUrl}/api/search?${params}`);
     setResults(response.data);
-    console.log("Search results:", response.data);
   };
 
   return (
