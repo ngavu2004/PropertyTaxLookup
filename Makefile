@@ -2,7 +2,7 @@
 
 start:
 	@echo Starting Property Tax Lookup Application...
-	@cmd /c start cmd /k "cd backend && python app.py"
+	@cmd /c start cmd /k "cd api && .\venv\Scripts\activate && python app.py"
 	@timeout /t 2 /nobreak > nul
 	@cmd /c start cmd /k "cd backend && node index.js"
 	@timeout /t 2 /nobreak > nul

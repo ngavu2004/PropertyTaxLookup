@@ -14,7 +14,7 @@ scrapers = {
     "pinal": PinalScraper()
 }
 
-@app.post("/az/<county>")
+@app.post("/api/az/<county>")
 def az_search(county):
     county = county.lower()
     if county not in scrapers:

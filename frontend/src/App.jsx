@@ -7,11 +7,10 @@ import ResultsList from './ResultsList';
 function App() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const apiUrl = import.meta.env.VITE_API_URL;
-  //const apiUrl = 'http://localhost:5000'; // Replace with your actual API URL
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:7000';
 
   // criteria is what the user entered (APN, Owner, Address)
-// region contains { state, county }
+  // region contains { state, county }
   const handleSearch = async (criteria, region) => {
     setLoading(true);          // start loading
     setResults([]);
@@ -43,7 +42,7 @@ function App() {
         }
 
         const response = await axios.post(
-          `http://localhost:7000/az/${region.county.toLowerCase()}`,
+          `${apiUrl}/api/az/${region.county.toLowerCase()}`,
           {
             mode,
             value,
