@@ -2,7 +2,7 @@ import requests
 import re, pprint
 from bs4 import BeautifulSoup
 from flask import Flask
-from scrapers.base_county import BaseCountyScraper
+from .base_county import BaseCountyScraper
 
 app = Flask(__name__)
 

@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from scrapers.base_county import BaseCountyScraper
 from scrapers.maricopa_api import MaricopaCounty as MaricopaScraper
 from scrapers.pima_scraper import PimaScraper
 from scrapers.pinal_scraper import PinalScraper

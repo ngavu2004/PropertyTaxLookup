@@ -1,7 +1,7 @@
 import requests
 from flask import Flask
 import csv, aiohttp, asyncio
-from scrapers.base_county import BaseCountyScraper
+from .base_county import BaseCountyScraper
 
 app = Flask(__name__)
 
@@ -34,6 +34,7 @@ class MaricopaCounty(BaseCountyScraper):
             response = requests.get(url, headers=headers)
             response.raise_for_status()
             data = response.json()
+
             properties = data.get("Results", [])
 
             taxRatesFile = "scrapers/Maricopa/tax_code_rates.csv"
@@ -42,8 +43,6 @@ class MaricopaCounty(BaseCountyScraper):
             # Collect APNs to fetch data concurrently
             apns = [prop.get("APN", "N/A") for prop in properties[:10]]
 
-            #loop = asyncio.get_event_loop()
-            #apn_results = loop.run_until_complete(self.async_fetch_all_apns(apns))
             apn_results = asyncio.run(self.async_fetch_all_apns(apns))
 
             for prop, (_, lpv_str, tax_code) in zip(properties[:10], apn_results):
