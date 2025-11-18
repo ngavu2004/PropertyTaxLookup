@@ -45,13 +45,7 @@ app.get('/api/search', async (req, res) => {
             'County': 'LCITY',
             'LCITY': 'LCITY',
             'Estimated Property Tax': 'Estimated_Property_Tax',
-            'Estimated_Property_Tax': 'Estimated_Property_Tax',
-            'UseType': 'UseType',
-            'UseDescription': 'UseDescription',
-            'YearBuilt': 'YearBuilt1',
-            'SQFT': 'SQFTmain1',
-            'Bedrooms': 'Bedrooms1',
-            'Bathrooms': 'Bathrooms1'
+            'Estimated_Property_Tax': 'Estimated_Property_Tax'
         };
 
         // Build the query object
@@ -78,19 +72,38 @@ app.get('/api/search', async (req, res) => {
         // Execute the query with limit
         const filtered = await Property.find(mongoQuery)
             .limit(10)
-            .lean(); // Use lean() for better performance
+            .lean();
 
-        // Reorder the keys to show "Estimated Property Tax" first
-        const reorderedResults = filtered.map((prop) => {
-            const { Estimated_Property_Tax, ...rest } = prop;
-            return { 
-                "Estimated Property Tax": Estimated_Property_Tax, 
-                ...rest 
-            };
+        const projection = [
+          "Estimated_Property_Tax", "AIN", "APN", "SitusAddress", "SitusCity", "SitusZIP", "Roll_LandValue", 'Avg_Tax_Rate'
+        ];
+
+        const projected = filtered.map(p => {
+        const projectedObj = {};
+
+        projection.forEach(field => {
+          if (p[field] !== undefined) {
+            projectedObj[field] = p[field];
+          }
         });
 
-        console.log(`Found ${reorderedResults.length} results`);
-        res.json(reorderedResults);
+        return projectedObj;
+      });
+
+      // Rename fields for frontend
+      const formatted = projected.map(p => ({
+        "Estimated Property Tax": p.Estimated_Property_Tax,
+        "AIN": p.AIN,
+        "APN": p.APN,
+        "Address": p.SitusAddress,
+        "City": p.SitusCity,
+        "ZIP Code": p.SitusZIP,
+        "Assessed LPV": p.Roll_LandValue,
+        "Average Tax Rate": p.Avg_Tax_Rate
+      }));
+
+      res.json(formatted);
+
         
     } catch (error) {
         console.error('Search error:', error);
@@ -190,3 +203,4 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`Server running at http://localhost:${PORT}`);
   });
 }
+

@@ -6,16 +6,68 @@ import ResultsList from './ResultsList';
 
 function App() {
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL;
+  //const apiUrl = 'http://localhost:5000'; // Replace with your actual API URL
 
-  const handleSearch = async (criteria) => {
-    console.log("Search criteria:", criteria);
-    const params = new URLSearchParams(criteria).toString();
-    
-    // Use Vite environment variables
-    console.log("API URL:", apiUrl);
-    const response = await axios.get(`${apiUrl}/api/search?${params}`);
-    setResults(response.data);
+  // criteria is what the user entered (APN, Owner, Address)
+// region contains { state, county }
+  const handleSearch = async (criteria, region) => {
+    setLoading(true);          // start loading
+    setResults([]);
+
+    try {
+      if (region.state === "AZ") {
+        // Decide mode based on which field user filled
+        let mode = "";
+        let value = "";
+        let st_number, st_direction, st_name, st_suffix;
+
+        if (criteria.APN || criteria.AIN) {
+          mode = "apn";
+          value = criteria.APN || criteria.AIN;
+        } else if (criteria.Owner) {
+          mode = "owner";
+          value = criteria.Owner;
+        } else if (criteria.Address) {
+          mode = "address";
+          // Naive split into components — adjust for your inputs
+          const parts = criteria.Address.split(" ");
+          st_number = parts[0];
+          st_direction = parts[1] || "";
+          st_name = parts[2] || "";
+          st_suffix = parts[3] || "";
+        } else {
+          setLoading(false);
+          return; // nothing to search
+        }
+
+        const response = await axios.post(
+          `http://localhost:7000/az/${region.county.toLowerCase()}`,
+          {
+            mode,
+            value,
+            st_number,
+            st_direction,
+            st_name,
+            st_suffix
+          }
+        );
+
+        setResults(response.data);
+
+      } else {
+        // CA database search
+        const params = new URLSearchParams(criteria).toString();
+        const response = await axios.get(`http://localhost:5000/api/search?${params}`);
+        setResults(response.data);
+      }
+    } catch (err) {
+      console.error("Search error:", err);
+      setResults([]);
+    } finally {
+      setLoading(false);       // stop loading
+    }
   };
 
   return (
@@ -24,7 +76,17 @@ function App() {
       <div className="search-bar-container">
         <SearchBar onSearch={handleSearch} />
       </div>
-      <ResultsList data={results} />
+      {/* Loading indicator */}
+      {loading && (
+        <div className="loading">
+          <p>Loading results...</p>
+          {/* Optional spinner */}
+          <div className="spinner"></div>
+        </div>
+      )}
+
+      {/* Results */}
+      {!loading && results.length > 0 && <ResultsList data={results} />}
     </div>
   );
 }

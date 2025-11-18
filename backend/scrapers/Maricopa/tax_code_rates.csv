@@ -1,0 +1,175 @@
+Tax Area Code,Elementary District,High School District,City,Primary Rate,Residential Rate,Secondary Rate
+000000,No,School,No School Unincorporated,3.7797,3.7797,0.6508
+001000,No,School,No School Mesa,3.7797,3.7797,1.5090
+001200,No,School,No School Peoria,4.0697,4.0697,1.8008
+001300,No,School,No School Phoenix,5.0455,5.0455,1.4649
+001400,No,School,No School Scottsdale,4.2688,4.2688,1.0741
+001500,No,School,No School Surprise,4.3331,4.3331,1.0388
+010000,Phoenix,#1,Phoenix Unincorporated,5.7006,4.1400,6.4247
+011300,Phoenix,#1,Phoenix Phoenix,6.9664,5.4058,7.2388
+020000,Riverside,#2,Phoenix Unincorporated,5.2499,3.8633,4.8786
+021300,Riverside,#2,Phoenix Phoenix,6.5157,5.1291,5.6927
+030000,Tempe,#3,Tempe Unincorporated,5.4524,3.8918,4.0743
+030900,Tempe,#3,Tempe Guadalupe,5.4524,3.8918,4.0743
+031000,Tempe,#3,Tempe Mesa,5.4524,3.8918,4.9325
+031300,Tempe,#3,Tempe Phoenix,6.7182,5.1576,4.8884
+031400,Tempe,#3,Tempe Scottsdale,5.9415,4.3809,4.4976
+031600,Tempe,#3,Tempe Tempe,6.3268,4.7662,5.6592
+040000,Mesa,#4,Unified Unincorporated,5.5939,4.0333,3.4138
+040300,Mesa,#4,Unified Chandler,5.8057,4.2451,4.2838
+040600,Mesa,#4,Unified Gilbert,5.5939,4.0333,4.3938
+041000,Mesa,#4,Unified Mesa,5.5939,4.0333,4.2720
+041600,Mesa,#4,Unified Tempe,6.4683,4.9077,4.9987
+042000,Mesa,#4,Unified Apache Junction,5.5939,4.0333,3.4138
+050000,Isaac,#5,Phoenix Unincorporated,5.7132,4.1526,8.4537
+051300,Isaac,#5,Phoenix Phoenix,6.9790,5.4184,9.2678
+060000,Washington,#6,Glendale Unincorporated,5.5743,4.0137,5.0537
+060700,Washington,#6,Glendale Glendale,5.8985,4.3379,6.1833
+061300,Washington,#6,Glendale Phoenix,6.8401,5.2795,5.8678
+070000,Wilson,#7,Phoenix Unincorporated,5.6083,4.0477,6.2605
+071300,Wilson,#7,Phoenix Phoenix,6.8741,5.3135,7.0746
+080000,Osborn,#8,Phoenix Unincorporated,5.5741,4.0135,5.3320
+081300,Osborn,#8,Phoenix Phoenix,6.8399,5.2793,6.1461
+090000,Wickenburg,#9,Unified Unincorporated,4.6556,3.4373,1.3954
+090200,Wickenburg,#9,Unified Buckeye,6.2560,5.0377,2.0450
+091500,Wickenburg,#9,Unified Surprise,5.2090,3.9907,1.7834
+091800,Wickenburg,#9,Unified Wickenburg,5.0553,3.8370,1.3954
+110000,Peoria,#11,Unified Unincorporated,5.3905,3.8299,2.5145
+110700,Peoria,#11,Unified Glendale,5.7147,4.1541,3.6441
+111200,Peoria,#11,Unified Peoria,5.6805,4.1199,3.6645
+111500,Peoria,#11,Unified Surprise,5.9439,4.3833,2.9025
+140000,Creighton,#14,Phoenix Unincorporated,5.6427,4.0821,5.7846
+141100,Creighton,#14,Phoenix Paradise Valley,5.6427,4.0821,5.7846
+141300,Creighton,#14,Phoenix Phoenix,6.9085,5.3479,6.5987
+150000,Peoria,Unorganized,No School Unincorporated,3.7797,3.7797,0.6508
+150400,Peoria,Unorganized,No School El Mirage,5.4393,5.4393,1.6286
+151200,Peoria,Unorganized,No School Peoria,4.0697,4.0697,1.8008
+151500,Peoria,Unorganized,No School Surprise,4.3331,4.3331,1.0388
+151900,Peoria,Unorganized,No School Youngtown,3.7797,3.7797,0.6508
+170000,Tolleson,#17,Tolleson Unincorporated,5.5410,3.9804,7.4094
+170100,Tolleson,#17,Tolleson Avondale,6.1505,4.5899,8.2591
+171300,Tolleson,#17,Tolleson Phoenix,6.8068,5.2462,8.2235
+171700,Tolleson,#17,Tolleson Tolleson,7.0568,5.4962,8.5696
+210000,Murphy,#21,Phoenix Unincorporated,5.6505,4.0899,4.7771
+211300,Murphy,#21,Phoenix Phoenix,6.9163,5.3557,5.5912
+240000,Gila,Bend,#24 Unified Unincorporated,5.5006,3.9400,2.6689
+240500,Gila,Bend,#24 Unified Gila Bend,6.2187,4.6581,2.6689
+250000,Liberty,#25,Buckeye Unincorporated,6.0530,4.4924,3.6159
+250100,Liberty,#25,Buckeye Avondale,6.6625,5.1019,4.4656
+250200,Liberty,#25,Buckeye Buckeye,7.6534,6.0928,4.2655
+250800,Liberty,#25,Buckeye Goodyear,6.9849,5.4243,4.4190
+280000,Kyrene,#28,Tempe Unincorporated,5.4355,3.8749,3.0094
+280300,Kyrene,#28,Tempe Chandler,5.6473,4.0867,3.8794
+280900,Kyrene,#28,Tempe Guadalupe,5.4355,3.8749,3.0094
+281300,Kyrene,#28,Tempe Phoenix,6.7013,5.1407,3.8235
+281600,Kyrene,#28,Tempe Tempe,6.3099,4.7493,4.5943
+291200,Peoria,#11,Unified Peoria,5.6805,4.1199,3.6645
+291900,Peoria,#11,Unified Youngtown,5.3905,3.8299,2.5145
+310000,Balsz,#31,Phoenix Unincorporated,5.5995,4.0389,5.0825
+311300,Balsz,#31,Phoenix Phoenix,6.8653,5.3047,5.8966
+311400,Balsz,#31,Phoenix Scottsdale,6.0886,4.5280,5.5058
+311600,Balsz,#31,Phoenix Tempe,6.4739,4.9133,6.6674
+330000,Buckeye,#33,Buckeye Unincorporated,5.8934,4.3328,3.9812
+330200,Buckeye,#33,Buckeye Buckeye,7.4938,5.9332,4.6308
+380000,Madison,#38,Phoenix Unincorporated,5.7269,4.1663,5.2210
+381300,Madison,#38,Phoenix Phoenix,6.9927,5.4321,6.0351
+400000,Glendale,#40,Glendale Unincorporated,5.5852,4.0246,6.8343
+400700,Glendale,#40,Glendale Glendale,5.9094,4.3488,7.9639
+401300,Glendale,#40,Glendale Phoenix,6.8510,5.2904,7.6484
+410000,Gilbert,#41,Unified Unincorporated,5.3976,3.8370,2.7020
+410300,Gilbert,#41,Unified Chandler,5.6094,4.0488,3.5720
+410600,Gilbert,#41,Unified Gilbert,5.3976,3.8370,3.6820
+411000,Gilbert,#41,Unified Mesa,5.3976,3.8370,3.5602
+440000,Avondale,#44,Agua Fria Unincorporated,5.7701,4.2095,4.0225
+440100,Avondale,#44,Agua Fria Avondale,6.3796,4.8190,4.8722
+440800,Avondale,#44,Agua Fria Goodyear,6.7020,5.1414,4.8256
+450000,Fowler,#45,Tolleson Unincorporated,5.4732,3.9126,6.4198
+451300,Fowler,#45,Tolleson Phoenix,6.7390,5.1784,7.2339
+451700,Fowler,#45,Tolleson Tolleson,6.9890,5.4284,7.5800
+470000,Arlington,#47,Buckeye Unincorporated,4.8550,3.6135,2.1483
+470200,Arlington,#47,Buckeye Buckeye,6.4554,5.2139,2.7979
+480000,Scottsdale,#48,Unified Unincorporated,4.4575,3.3398,1.6922
+481100,Scottsdale,#48,Unified Paradise Valley,4.4575,3.3398,1.6922
+481300,Scottsdale,#48,Unified Phoenix,5.7233,4.6056,2.5063
+481400,Scottsdale,#48,Unified Scottsdale,4.9466,3.8289,2.1155
+481600,Scottsdale,#48,Unified Tempe,5.3319,4.2142,3.2771
+490000,Palo,Verde,#49 Buckeye Unincorporated,5.5949,4.0343,3.3632
+490200,Palo,Verde,#49 Buckeye Buckeye,7.1953,5.6347,4.0128
+560000,Peoria,#11,Unified Unincorporated,5.3905,3.8299,2.5145
+590000,Laveen,#59,Phoenix Unincorporated,5.7781,4.2175,7.8807
+591300,Laveen,#59,Phoenix Phoenix,7.0439,5.4833,8.6948
+600000,Higley,#60,Unified Unincorporated,5.5779,4.0173,2.2903
+600600,Higley,#60,Unified Gilbert,5.5779,4.0173,3.2703
+601000,Higley,#60,Unified Mesa,5.5779,4.0173,3.1485
+602500,Higley,#60,Unified Queen Creek,7.1264,5.5658,2.2903
+620000,Union,#62,Tolleson Unincorporated,5.5266,3.9660,7.6979
+621300,Union,#62,Tolleson Phoenix,6.7924,5.2318,8.5120
+630000,Aguila,#63,No School Unincorporated,8.3249,7.5446,0.6508
+650000,Littleton,#65,Tolleson Unincorporated,5.4444,3.8838,7.5659
+650100,Littleton,#65,Tolleson Avondale,6.0539,4.4933,8.4156
+650800,Littleton,#65,Tolleson Goodyear,6.3763,4.8157,8.3690
+651300,Littleton,#65,Tolleson Phoenix,6.7102,5.1496,8.3800
+651700,Littleton,#65,Tolleson Tolleson,6.9602,5.3996,8.7261
+660000,Roosevelt,#66,Phoenix Unincorporated,5.6015,4.0409,7.3966
+661300,Roosevelt,#66,Phoenix Phoenix,6.8673,5.3067,8.2107
+680000,Alhambra,#68,Phoenix Unincorporated,5.7274,4.1668,8.0037
+680700,Alhambra,#68,Phoenix Glendale,6.0516,4.4910,9.1333
+681300,Alhambra,#68,Phoenix Phoenix,6.9932,5.4326,8.8178
+690000,Paradise,Vly#69,Unified Unincorporated,5.3791,3.8185,2.7609
+691300,Paradise,Vly#69,Unified Phoenix,6.6449,5.0843,3.5750
+691400,Paradise,Vly#69,Unified Scottsdale,5.8682,4.3076,3.1842
+710000,Sentinel,#71,No School Unincorporated,13.1612,10.0000,0.6508
+750000,Morristown,#75,No School Unincorporated,6.6553,5.8750,0.6508
+750200,Morristown,#75,No School Buckeye,8.2557,7.4754,1.3004
+790000,Litchfield,#79,Agua Fria Unincorporated,5.8822,4.3216,3.2738
+790100,Litchfield,#79,Agua Fria Avondale,6.4917,4.9311,4.1235
+790200,Litchfield,#79,Agua Fria Buckeye,7.4826,5.9220,3.9234
+790700,Litchfield,#79,Agua Fria Glendale,6.2064,4.6458,4.4034
+790800,Litchfield,#79,Agua Fria Goodyear,6.8141,5.2535,4.0769
+791300,Litchfield,#79,Agua Fria Phoenix,7.1480,5.5874,4.0879
+792300,Litchfield,#79,Agua Fria Litchfield Park,5.8822,4.3216,3.2738
+800000,Chandler,#80,Unified Unincorporated,5.4795,3.9189,2.7891
+800300,Chandler,#80,Unified Chandler,5.6913,4.1307,3.6591
+800600,Chandler,#80,Unified Gilbert,5.4795,3.9189,3.7691
+801600,Chandler,#80,Unified Tempe,6.3539,4.7933,4.3740
+802500,Chandler,#80,Unified Queen Creek,7.0280,5.4674,2.7891
+810000,Nadaburg,#81,Unified Unincorporated,6.1126,4.5520,0.9974
+811200,Nadaburg,#81,Unified Peoria,6.4026,4.8420,2.1474
+811500,Nadaburg,#81,Unified Surprise,6.6660,5.1054,1.3854
+830000,Cartwright,#83,Phoenix Unincorporated,5.6395,4.0789,9.7852
+830700,Cartwright,#83,Phoenix Glendale,5.9637,4.4031,10.9148
+831300,Cartwright,#83,Phoenix Phoenix,6.9053,5.3447,10.5993
+860000,Mobile,#86,No School Unincorporated,10.7551,9.9748,0.6508
+860800,Mobile,#86,No School Goodyear,11.6870,10.0000,1.4539
+880000,Dysart,Unorganized,No School Unincorporated,3.7797,3.7797,0.6508
+881500,Dysart,Unorganized,No School Surprise,4.3331,4.3331,1.0388
+890000,Dysart,#89,Unified Unincorporated,5.4500,3.8894,2.7045
+890400,Dysart,#89,Unified El Mirage,7.1096,5.5490,3.6823
+890700,Dysart,#89,Unified Glendale,5.7742,4.2136,3.8341
+891200,Dysart,#89,Unified Peoria,5.7400,4.1794,3.8545
+891500,Dysart,#89,Unified Surprise,6.0034,4.4428,3.0925
+891900,Dysart,#89,Unified Youngtown,5.4500,3.8894,2.7045
+900000,Saddle,Mtn,#90 Unified Unincorporated,4.8309,3.6100,1.5827
+900200,Saddle,Mtn,#90 Unified Buckeye,6.4313,5.2104,2.2323
+920000,Pendergast,#92,Tolleson Unincorporated,5.4646,3.9040,8.6292
+920100,Pendergast,#92,Tolleson Avondale,6.0741,4.5135,9.4789
+920700,Pendergast,#92,Tolleson Glendale,5.7888,4.2282,9.7588
+921300,Pendergast,#92,Tolleson Phoenix,6.7304,5.1698,9.4433
+930000,Cave,Creek,#93 Unified Unincorporated,3.8121,3.3034,0.8284
+931300,Cave,Creek,#93 Unified Phoenix,5.0779,4.5692,1.6425
+931400,Cave,Creek,#93 Unified Scottsdale,4.3012,3.7925,1.2517
+932100,Cave,Creek,#93 Unified Carefree,3.8121,3.3034,0.8284
+932200,Cave,Creek,#93 Unified Cave Creek,3.8121,3.3034,0.8284
+940000,Paloma,#94,No School Unincorporated,6.1902,5.4099,0.6508
+940500,Paloma,#94,No School Gila Bend,6.9083,6.1280,0.6508
+950000,Queen,Creek,#95 Unified Unincorporated,5.6462,4.0856,2.9313
+951000,Queen,Creek,#95 Unified Mesa,5.6462,4.0856,3.7895
+952500,Queen,Creek,#95 Unified Queen Creek,7.1947,5.6341,2.9313
+970000,Deer,Valley,#97 Unified Unincorporated,5.4349,3.8743,2.7425
+970700,Deer,Valley,#97 Unified Glendale,5.7591,4.1985,3.8721
+971200,Deer,Valley,#97 Unified Peoria,5.7249,4.1643,3.8925
+971300,Deer,Valley,#97 Unified Phoenix,6.7007,5.1401,3.5566
+972200,Deer,Valley,#97 Unified Cave Creek,5.4349,3.8743,2.7425
+980000,Fountain,Hills,#98 Unified Unincorporated,3.8691,3.2197,0.9972
+981400,Fountain,Hills,#98 Unified Scottsdale,4.3582,3.7088,1.4205
+982400,Fountain,Hills,#98 Unified Fountain Hills,3.8691,3.2197,0.9972
