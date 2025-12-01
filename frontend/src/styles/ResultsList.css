@@ -1,25 +1,95 @@
-.results-table {
-    width: 100%; /* Equivalent to w-full */
-    max-width: 100%; /* Ensures it doesn't exceed the container width */
-    border-collapse: collapse; /* Ensures borders are collapsed */
-    margin-top: 1rem; /* Equivalent to mt-4 */
-    overflow-x: auto;
+.results-container {
+  margin-top: 20px;
+}
+
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 5px;
+}
+
+.results-count {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 5px;
+  background-color: #f0f0f0;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #666;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #2c3e50;
+}
+
+.toggle-button.active {
+  background-color: #3498db;
+  color: white;
+}
+
+.toggle-button.active:hover {
+  background-color: #2980b9;
+}
+
+.results-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.results-grid.grid {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.results-grid.list {
+  grid-template-columns: 1fr;
+}
+
+.no-results {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .results-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
   }
-  
-  .results-table th,
-  .results-table td {
-    padding: 0.5rem; /* Equivalent to p-2 */
-    border: 1px solid #d1d5db; /* Equivalent to border (default gray-300 in Tailwind) */
+
+  .results-grid.grid {
+    grid-template-columns: 1fr;
   }
-  
-  .results-table thead tr {
-    background-color: #e5e7eb; /* Equivalent to bg-gray-200 */
+}
+
+@media (max-width: 480px) {
+  .results-count {
+    font-size: 12px;
   }
-  
-  .results-table tbody tr:nth-child(odd) {
-    background-color: #ffffff; /* Equivalent to odd:bg-white */
+
+  .toggle-button {
+    padding: 6px 10px;
   }
-  
-  .results-table tbody tr:nth-child(even) {
-    background-color: #f9fafb; /* Equivalent to even:bg-gray-50 */
-  }
+}
