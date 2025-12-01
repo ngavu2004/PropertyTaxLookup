@@ -7,7 +7,7 @@ import ResultsList from './ResultsList';
 function App() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:7000';
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
   // criteria is what the user entered (APN, Owner, Address)
   // region contains { state, county }
@@ -58,7 +58,7 @@ function App() {
       } else {
         // CA database search
         const params = new URLSearchParams(criteria).toString();
-        const response = await axios.get(`http://localhost:5000/api/search?${params}`);
+        const response = await axios.get(`${apiUrl}/api/search?${params}`);
         setResults(response.data);
       }
     } catch (err) {
