@@ -5,6 +5,7 @@ import NavigationBar from './NavigationBar';
 import SearchBar from './SearchBar';
 import ResultsList from './ResultsList';
 import CreateAppeal from './CreateAppeal';
+import DatabaseStatistics from './DatabaseStatistics';
 import Scraper from './Scraper';
 
 function App() {
@@ -97,6 +98,8 @@ function App() {
         );
       case 'appeal':
         return <CreateAppeal />;
+      case 'statistics':
+        return <DatabaseStatistics />;
       case 'scraper':
         return <Scraper />;
       default:

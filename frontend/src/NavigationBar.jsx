@@ -4,6 +4,7 @@ export default function NavigationBar({ activeTab, setActiveTab }) {
   const tabs = [
     { id: 'search', label: 'Search' },
     { id: 'appeal', label: 'Create Appeal' },
+    { id: 'statistics', label: 'Database Statistics' },
     { id: 'scraper', label: 'Scraper' }
   ];
 

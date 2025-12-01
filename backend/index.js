@@ -114,6 +114,107 @@ app.get('/api/search', async (req, res) => {
     }
 });
 
+// === Database Statistics ===
+// GET /api/statistics
+app.get('/api/statistics', async (req, res) => {
+  try {
+    // Get total count
+    const totalProperties = await Property.countDocuments();
+
+    // Get tax statistics
+    const taxStats = await Property.aggregate([
+      {
+        $project: {
+          tax: {
+            $convert: {
+              input: { $trim: { input: { $ifNull: ['$Estimated_Property_Tax', '0'] } } },
+              to: 'double',
+              onError: null,
+              onNull: null
+            }
+          }
+        }
+      },
+      {
+        $match: {
+          tax: { $exists: true, $ne: null, $gt: 0 }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          averageTax: { $avg: '$tax' },
+          highestTax: { $max: '$tax' },
+          lowestTax: { $min: '$tax' }
+        }
+      }
+    ]);
+
+    // Get unique cities count
+    const citiesCount = await Property.distinct('SitusCity').then(cities => cities.filter(city => city && city.trim() !== '').length);
+
+    // Get unique ZIP codes count
+    const zipCodesCount = await Property.distinct('SitusZIP').then(zips => zips.filter(zip => zip && zip.trim() !== '').length);
+
+    // Get top cities by property count
+    const topCities = await Property.aggregate([
+      {
+        $match: {
+          SitusCity: { 
+            $exists: true, 
+            $ne: null,
+            $nin: ['', 'N/A', 'n/a', 'N/a', 'NA', 'na', 'Na']
+          }
+        }
+      },
+      {
+        $addFields: {
+          cityTrimmed: { $trim: { input: { $ifNull: ['$SitusCity', ''] } } }
+        }
+      },
+      {
+        $match: {
+          cityTrimmed: { $ne: '', $nin: ['N/A', 'n/a', 'N/a', 'NA', 'na', 'Na'] }
+        }
+      },
+      {
+        $group: {
+          _id: '$cityTrimmed',
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $sort: { count: -1 }
+      },
+      {
+        $limit: 10
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$_id',
+          count: 1
+        }
+      }
+    ]);
+
+    const stats = {
+      totalProperties,
+      averageTax: taxStats[0]?.averageTax || 0,
+      highestTax: taxStats[0]?.highestTax || 0,
+      lowestTax: taxStats[0]?.lowestTax || 0,
+      totalCities: citiesCount,
+      totalZipCodes: zipCodesCount,
+      topCities: topCities
+    };
+
+    res.json(stats);
+  } catch (err) {
+    console.error('Statistics error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // === Appeal comparison (average vs. user) ===
 // GET /api/appeal-comparison?locationType=zip&locationValue=90272-4365&userTax=20000
 app.get('/api/appeal-comparison', async (req, res) => {
