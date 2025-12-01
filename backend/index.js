@@ -71,7 +71,7 @@ app.get('/api/search', async (req, res) => {
 
         // Execute the query with limit
         const filtered = await Property.find(mongoQuery)
-            .limit(10)
+            .limit(200)
             .lean();
 
         const projection = [
