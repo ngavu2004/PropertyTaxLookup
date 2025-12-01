@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './styles/App.css';
+import NavigationBar from './NavigationBar';
 import SearchBar from './SearchBar';
 import ResultsList from './ResultsList';
+import CreateAppeal from './CreateAppeal';
+import Scraper from './Scraper';
 
 function App() {
+  const [activeTab, setActiveTab] = useState('search');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -69,23 +73,50 @@ function App() {
     }
   };
 
-  return (
-    <div className="search-container">
-      <h1 className="search-heading">Property Tax Search</h1>
-      <div className="search-bar-container">
-        <SearchBar onSearch={handleSearch} />
-      </div>
-      {/* Loading indicator */}
-      {loading && (
-        <div className="loading">
-          <p>Loading results...</p>
-          {/* Optional spinner */}
-          <div className="spinner"></div>
-        </div>
-      )}
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'search':
+        return (
+          <div className="search-container">
+            <h1 className="search-heading">Property Tax Search</h1>
+            <div className="search-bar-container">
+              <SearchBar onSearch={handleSearch} />
+            </div>
+            {/* Loading indicator */}
+            {loading && (
+              <div className="loading">
+                <p>Loading results...</p>
+                {/* Optional spinner */}
+                <div className="spinner"></div>
+              </div>
+            )}
 
-      {/* Results */}
-      {!loading && results.length > 0 && <ResultsList data={results} />}
+            {/* Results */}
+            {!loading && results.length > 0 && <ResultsList data={results} />}
+          </div>
+        );
+      case 'appeal':
+        return <CreateAppeal />;
+      case 'scraper':
+        return <Scraper />;
+      default:
+        return (
+          <div className="search-container">
+            <h1 className="search-heading">Property Tax Search</h1>
+            <div className="search-bar-container">
+              <SearchBar onSearch={handleSearch} />
+            </div>
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="app">
+      <NavigationBar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="app-content">
+        {renderContent()}
+      </div>
     </div>
   );
 }
