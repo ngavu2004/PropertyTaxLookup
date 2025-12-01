@@ -6,6 +6,7 @@ import SearchBar from './SearchBar';
 import ResultsList from './ResultsList';
 import CreateAppeal from './CreateAppeal';
 import DatabaseStatistics from './DatabaseStatistics';
+import MapView from './MapView';
 import Scraper from './Scraper';
 
 function App() {
@@ -100,6 +101,8 @@ function App() {
         return <CreateAppeal />;
       case 'statistics':
         return <DatabaseStatistics />;
+      case 'map':
+        return <MapView />;
       case 'scraper':
         return <Scraper />;
       default:

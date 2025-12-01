@@ -5,6 +5,7 @@ export default function NavigationBar({ activeTab, setActiveTab }) {
     { id: 'search', label: 'Search' },
     { id: 'appeal', label: 'Create Appeal' },
     { id: 'statistics', label: 'Database Statistics' },
+    { id: 'map', label: 'Map' },
     { id: 'scraper', label: 'Scraper' }
   ];
 

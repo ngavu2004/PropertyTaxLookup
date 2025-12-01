@@ -215,6 +215,209 @@ app.get('/api/statistics', async (req, res) => {
   }
 });
 
+// === Cities for Map ===
+// GET /api/cities
+app.get('/api/cities', async (req, res) => {
+  try {
+    const cities = await Property.aggregate([
+      {
+        $match: {
+          SitusCity: { 
+            $exists: true, 
+            $ne: null,
+            $nin: ['', 'N/A', 'n/a', 'N/a', 'NA', 'na', 'Na']
+          },
+          CENTER_LAT: { $exists: true, $ne: null, $ne: '' },
+          CENTER_LON: { $exists: true, $ne: null, $ne: '' }
+        }
+      },
+      {
+        $addFields: {
+          cityTrimmed: { $trim: { input: { $ifNull: ['$SitusCity', ''] } } },
+          lat: {
+            $convert: {
+              input: { $trim: { input: { $ifNull: ['$CENTER_LAT', '0'] } } },
+              to: 'double',
+              onError: null,
+              onNull: null
+            }
+          },
+          lon: {
+            $convert: {
+              input: { $trim: { input: { $ifNull: ['$CENTER_LON', '0'] } } },
+              to: 'double',
+              onError: null,
+              onNull: null
+            }
+          }
+        }
+      },
+      {
+        $match: {
+          cityTrimmed: { $ne: '', $nin: ['N/A', 'n/a', 'N/a', 'NA', 'na', 'Na'] },
+          lat: { $exists: true, $ne: null, $gt: 0 },
+          lon: { $exists: true, $ne: null, $lt: 0 }
+        }
+      },
+      {
+        $group: {
+          _id: '$cityTrimmed',
+          count: { $sum: 1 },
+          avgLat: { $avg: '$lat' },
+          avgLon: { $avg: '$lon' },
+          minLat: { $min: '$lat' },
+          maxLat: { $max: '$lat' },
+          minLon: { $min: '$lon' },
+          maxLon: { $max: '$lon' }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          name: '$_id',
+          count: 1,
+          centroid: {
+            lat: { $round: ['$avgLat', 6] },
+            lon: { $round: ['$avgLon', 6] }
+          },
+          bounds: {
+            minLat: { $round: ['$minLat', 6] },
+            maxLat: { $round: ['$maxLat', 6] },
+            minLon: { $round: ['$minLon', 6] },
+            maxLon: { $round: ['$maxLon', 6] }
+          }
+        }
+      },
+      {
+        $sort: { count: -1 }
+      }
+    ]);
+
+    res.json(cities);
+  } catch (err) {
+    console.error('Cities error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// === City Statistics ===
+// GET /api/city-statistics?city=NAME
+app.get('/api/city-statistics', async (req, res) => {
+  try {
+    const { city } = req.query;
+    
+    if (!city) {
+      return res.status(400).json({ error: 'City parameter is required' });
+    }
+
+    const cityName = city.trim();
+
+    // Get total properties in city (matching trimmed city names)
+    const totalPropertiesResult = await Property.aggregate([
+      {
+        $addFields: {
+          cityTrimmed: { $trim: { input: { $ifNull: ['$SitusCity', ''] } } }
+        }
+      },
+      {
+        $match: {
+          cityTrimmed: { $regex: new RegExp(`^${cityName}$`, 'i') }
+        }
+      },
+      {
+        $count: 'total'
+      }
+    ]);
+
+    const totalProperties = totalPropertiesResult[0]?.total || 0;
+
+    if (totalProperties === 0) {
+      return res.json({
+        city: cityName,
+        totalProperties: 0,
+        averageTax: 0,
+        highestTax: 0,
+        lowestTax: 0,
+        totalZipCodes: 0
+      });
+    }
+
+    // Get tax statistics for the city
+    const taxStats = await Property.aggregate([
+      {
+        $addFields: {
+          cityTrimmed: { $trim: { input: { $ifNull: ['$SitusCity', ''] } } }
+        }
+      },
+      {
+        $match: {
+          cityTrimmed: { $regex: new RegExp(`^${cityName}$`, 'i') }
+        }
+      },
+      {
+        $project: {
+          tax: {
+            $convert: {
+              input: { $trim: { input: { $ifNull: ['$Estimated_Property_Tax', '0'] } } },
+              to: 'double',
+              onError: null,
+              onNull: null
+            }
+          }
+        }
+      },
+      {
+        $match: {
+          tax: { $exists: true, $ne: null, $gt: 0 }
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          averageTax: { $avg: '$tax' },
+          highestTax: { $max: '$tax' },
+          lowestTax: { $min: '$tax' }
+        }
+      }
+    ]);
+
+    // Get unique ZIP codes count for the city
+    const zipCodesResult = await Property.aggregate([
+      {
+        $addFields: {
+          cityTrimmed: { $trim: { input: { $ifNull: ['$SitusCity', ''] } } }
+        }
+      },
+      {
+        $match: {
+          cityTrimmed: { $regex: new RegExp(`^${cityName}$`, 'i') }
+        }
+      },
+      {
+        $group: {
+          _id: '$SitusZIP'
+        }
+      }
+    ]);
+
+    const zipCodesCount = zipCodesResult.filter(zip => zip._id && zip._id.trim() !== '').length;
+
+    const stats = {
+      city: cityName,
+      totalProperties,
+      averageTax: taxStats[0]?.averageTax || 0,
+      highestTax: taxStats[0]?.highestTax || 0,
+      lowestTax: taxStats[0]?.lowestTax || 0,
+      totalZipCodes: zipCodesCount
+    };
+
+    res.json(stats);
+  } catch (err) {
+    console.error('City statistics error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // === Appeal comparison (average vs. user) ===
 // GET /api/appeal-comparison?locationType=zip&locationValue=90272-4365&userTax=20000
 app.get('/api/appeal-comparison', async (req, res) => {
